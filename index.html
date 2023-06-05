@@ -8,20 +8,53 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+    <div class="heading">
+        ROCK PAPER SCISSORS
+    </div>
+
+    <div class="rst-btn">
+        <button class="reset">RESET</button>
+    </div>
+
+    <div class="game-window">
+        <div class="options">
+
+            <div class="choice">
+                PLAYER
+                <div class="player option"> </div>
+            </div>
+
+            <div class="choice">
+                COMPUTER 
+                <div class="computer option"> </div>
+            </div>
+
+        </div>
+
+        <div class="scores">
+            SCORES
+            <div class="scorecard">
+                Player's Score
+                <div class="player-score score">0</div>
+            </div>
+
+            <div class="scorecard">
+                Computer's Score
+                <div class="computer-score score">0</div>
+            </div>
+        </div>
+    </div>
+
     
+    <div class="results"></div>
+
     <div class="choices">
         <button class="btn" id="0">ROCK</button>
         <button class="btn" id="1">PAPER</button>
         <button class="btn" id="2">SCISSORS</button>
     </div>
 
-    <div class="results">
-    </div>
 
-
-    <div>
-        <button class="reset">Reset</button>
-    </div>
 
     <script src="scripts.js"></script>
 </body>

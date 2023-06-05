@@ -2,8 +2,14 @@ const choices= ["Rock", "Paper", "Scissors"]
 
 let buttons= document.querySelectorAll('.btn');
 let results= document.querySelector('.results');
-
 let resetBtn= document.querySelector('.reset');
+
+let player_score= document.querySelector('.player-score');
+let computer_score= document.querySelector('.computer-score');
+
+let player_display= document.querySelector('.player');
+let computer_display= document.querySelector('.computer');
+
 
 // console.log(buttons);
 
@@ -51,9 +57,11 @@ function getComputerChoice(){
 
 function updatePlayerWins(){
     playerWins+=1
+    player_score.textContent = playerWins;
 }
 function updateComputerWins(){
     computerWins+=1
+    computer_score.textContent= computerWins;
 }
 
 
@@ -90,6 +98,9 @@ function reset(){
         results.removeChild(results.firstElementChild);
     }
 
+    player_score.textContent= 0;
+    computer_score.textContent=0;
+
 }
 
 
@@ -102,6 +113,11 @@ function reset(){
 function singleRound(playerChoice){
     let computer= getComputerChoice().toLowerCase();
     console.log("Computer Chose: " + computer+"  Player Chose: " +playerChoice);
+
+    player_display.textContent= playerChoice.toUpperCase();
+    computer_display.textContent= computer.toUpperCase();
+
+
     rounds+=1;
 
     if(computer === playerChoice) {
