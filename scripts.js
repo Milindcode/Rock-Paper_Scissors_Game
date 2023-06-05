@@ -1,4 +1,17 @@
-const choices= ["Scissors", "Paper", "Rock"]
+const choices= ["Rock", "Paper", "Scissors"]
+
+buttons= document.querySelectorAll('.btn');
+
+// console.log(buttons);
+
+let playerChoice= null;
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        playerChoice=  choices[parseInt(btn.id)].toLowerCase();
+        singleRound(playerChoice);
+    });
+});
 
 
 function getRndInteger() {
@@ -10,24 +23,21 @@ function getComputerChoice(){
     return choices[index];
 }
 
-function getPlayerChoice(){
-    let choice= prompt("Enter your choice: ", "Rock");
-    return choice.toLowerCase();
-}
+
+
 
 // console.log(getComputerChoice() + getPlayerChoice());
 
-function singleRound(){
+function singleRound(playerChoice){
     let computer= getComputerChoice().toLowerCase();
-    let player = getPlayerChoice();
-    console.log("Computer Chose: " + computer+"  Player Chose: " +player);
+    console.log("Computer Chose: " + computer+"  Player Chose: " +playerChoice);
 
-    if(computer === player) {
+    if(computer === playerChoice) {
         console.log("There's a Tie");
         return "tie";
     }
 
-    else if((computer==="scissors" && player==="paper") || (computer==="rock" && player==="scissors") || (computer==="paper" && player==="rock")){
+    else if((computer==="scissors" && playerChoice==="paper") || (computer==="rock" && playerChoice==="scissors") || (computer==="paper" && playerChoice==="rock")){
         console.log("Computer Wins!");
         return "computer";
     }
@@ -38,22 +48,23 @@ function singleRound(){
     }
 }
 
-function game(){
-    let playerWins=0;
-    let ties= 0;
-    for(let i=0; i<5; i++){
-        let winner = singleRound();
-        if(winner === "player") playerWins+=1;
-        else if(winner=== "tie") ties+=1;
-    }
+// function game(){
+//     let playerWins=0;
+//     let ties= 0;
+//     for(let i=0; i<5; i++){
+//         let winner = singleRound();
+//         if(winner === "player") playerWins+=1;
+//         else if(winner=== "tie") ties+=1;
+//     }
 
-    if(playerWins> (5-ties-playerWins))console.log("Player Wins the Game!!!");
-    else if(playerWins< (5-ties-playerWins))console.log("Computer Wins the Game!!!");
-    else console.log("The Game Ties!! Both player and computer won the same number of rounds");
-}
+//     if(playerWins> (5-ties-playerWins))console.log("Player Wins the Game!!!");
+//     else if(playerWins< (5-ties-playerWins))console.log("Computer Wins the Game!!!");
+//     else console.log("The Game Ties!! Both player and computer won the same number of rounds");
+// }
 
-game();
+// game();
 
 // for(let i=0; i<10; i++){
 //     console.log(getRndInteger());
 // }
+
