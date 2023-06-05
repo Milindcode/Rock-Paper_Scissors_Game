@@ -1,18 +1,44 @@
 const choices= ["Rock", "Paper", "Scissors"]
 
-buttons= document.querySelectorAll('.btn');
+let buttons= document.querySelectorAll('.btn');
+let results= document.querySelector('.results');
+
+let resetBtn= document.querySelector('.reset');
 
 // console.log(buttons);
 
-let playerChoice= null;
+
+// DECLARING AND INITIALISING VARIOUS VARIABLES 
+
+let rounds = 0;
+let playerWins= 0;
+let computerWins= 0;
+
+
+// ADDING EVENT LISTENERS TO ALL THE BUTTONS
+
 
 buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-        playerChoice=  choices[parseInt(btn.id)].toLowerCase();
-        singleRound(playerChoice);
+
+        if(rounds<5){
+            let playerChoice=  choices[parseInt(btn.id)].toLowerCase();
+            singleRound(playerChoice);
+            
+            if(rounds===5){
+                finalResult();
+            }
+        }
     });
 });
 
+
+resetBtn.addEventListener('click', reset);
+
+
+
+
+// UTILITY FUNCTION DEFINITIONS FOR INTERNAL LOGIC 
 
 function getRndInteger() {
     return Math.floor(Math.random() *3);
@@ -23,7 +49,52 @@ function getComputerChoice(){
     return choices[index];
 }
 
+function updatePlayerWins(){
+    playerWins+=1
+}
+function updateComputerWins(){
+    computerWins+=1
+}
 
+
+// DOM MANIPULATION FUNCTIONS
+
+function finalResult(){
+    const finalDiv = document.createElement('div');
+    finalDiv.textContent = "Player Score: " + playerWins + " Computer Score: "+ computerWins;
+
+    results.appendChild(finalDiv);
+}
+
+function roundResult(result){
+    div = document.createElement('div');
+    if(result==="Tie"){
+        div.textContent= "The result is a Tie!"; 
+    }
+    else{
+        div.textContent= result+" Wins!!";
+    }
+
+    if(results.firstElementChild != null){
+        results.removeChild(results.firstElementChild);
+    }
+
+    results.appendChild(div);
+}
+
+
+function reset(){
+    playerWins= computerWins= rounds= 0;
+    
+    while(results.firstElementChild){
+        results.removeChild(results.firstElementChild);
+    }
+
+}
+
+
+
+// FUNCTION CONTAINING LOGIC OF THE GAME 
 
 
 // console.log(getComputerChoice() + getPlayerChoice());
@@ -31,20 +102,23 @@ function getComputerChoice(){
 function singleRound(playerChoice){
     let computer= getComputerChoice().toLowerCase();
     console.log("Computer Chose: " + computer+"  Player Chose: " +playerChoice);
+    rounds+=1;
 
     if(computer === playerChoice) {
         console.log("There's a Tie");
-        return "tie";
+        roundResult("Tie");
     }
 
     else if((computer==="scissors" && playerChoice==="paper") || (computer==="rock" && playerChoice==="scissors") || (computer==="paper" && playerChoice==="rock")){
         console.log("Computer Wins!");
-        return "computer";
+        updateComputerWins();
+        roundResult("Computer")
     }
 
     else{
         console.log("You Win!");
-        return "player";
+        updatePlayerWins();
+        roundResult("Player");
     }
 }
 
